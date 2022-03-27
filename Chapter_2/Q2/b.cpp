@@ -1,6 +1,13 @@
 // b. see the shared_ptr count
+// output:
+
+// C2 destructor
+
+// C1 destructor
+// 0
 #include <iostream>
 #include <memory>
+#include <cstdlib>
 
 class C1
 {
@@ -22,17 +29,19 @@ public:
     void print() const { std::cout << "Value " << *d; }
 };
 
-void program()
+std::shared_ptr<double> sp(new double(1));
+std::weak_ptr<double> wp(sp);
+
+void use_count()
 {
-    std::shared_ptr<double> sp(new double(1));
-    C1 c1(sp);
-    C2 c2(sp);
-    std::cout << sp.use_count() << std::endl; // 3
-    return;
-}
+    std::cout << wp.use_count() << std::endl; // 0
+};
 
 int main()
 {
-    program();
+    C1 c1(sp);
+    C2 c2(sp);
+    sp.reset();
+    std::atexit(use_count);
     return 0;
 }

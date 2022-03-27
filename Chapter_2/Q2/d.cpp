@@ -1,6 +1,8 @@
-// d. ???
+// d
 #include <iostream>
 #include <memory>
+#include <cstdlib>
+#include <assert.h>
 
 struct Point
 {
@@ -13,37 +15,44 @@ struct Point
     void Y(double y) {this->y = y;};
 };
 
-class C1
+void transfer_ownership()
 {
-private:
-    std::shared_ptr<Point> d;
-public:
-    C1(std::shared_ptr<Point> value) : d(value) {}
-    virtual ~C1() { std::cout << "\nC1 destructor\n";}
-    void print() const { std::cout << "Value " << d->x << " " << d->y; }
-};
+    std::shared_ptr<Point> sp1(new Point(1, 3));
+    auto sp2 = std::move(sp1);
+    assert(sp2.use_count() == 1);
+    assert(sp1.use_count() == 0);
+    return;
+}
 
-class C2
+void is_only_owner()
 {
-private:
-    std::shared_ptr<Point> d;
-public:
-    C2(std::shared_ptr<Point> value) : d(value) {}
-    virtual ~C2() { std::cout << "\nC2 destructor\n";}
-    void print() const { std::cout << "Value " << d->x << " " << d->y; }
-};
+    std::shared_ptr<Point> sp1(new Point(1, 3));
+    assert(sp1.use_count() == 1L);
+    return;
+}
 
-void program()
+void swap_ownership()
 {
-    std::shared_ptr<Point> sp(new Point(1, 2));
-    C1 c1(sp);
-    C2 c2(sp);
-    std::cout << sp.use_count() << std::endl; // 3
+    std::shared_ptr<Point> sp1(new Point(1, 3));
+    std::shared_ptr<Point> sp2(new Point(2, 3));
+    std::swap(sp1, sp2);
+    assert(sp1->x == 2 && sp2->x == 1);
+    return;
+}
+
+void give_up_ownership()
+{
+    std::shared_ptr<Point> sp1(new Point(1, 3));
+    sp1.reset();
+    assert(sp1.use_count() == 0);
     return;
 }
 
 int main()
 {
-    program();
+    transfer_ownership();
+    is_only_owner();
+    swap_ownership();
+    give_up_ownership();
     return 0;
 }

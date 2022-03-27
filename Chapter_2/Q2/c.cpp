@@ -1,6 +1,14 @@
 // c. use user-defined data structure instead of double
+// output:
+
+// C2 destructor
+
+// C1 destructor
+//  point destroyed
+// 0
 #include <iostream>
 #include <memory>
+#include <cstdlib>
 
 struct Point
 {
@@ -20,7 +28,7 @@ private:
 public:
     C1(std::shared_ptr<Point> value) : d(value) {}
     virtual ~C1() { std::cout << "\nC1 destructor\n";}
-    void print() const { std::cout << "Value " << d->x << " " << d->y; }
+    void print() const { std::cout << "Value " << d; }
 };
 
 class C2
@@ -30,20 +38,22 @@ private:
 public:
     C2(std::shared_ptr<Point> value) : d(value) {}
     virtual ~C2() { std::cout << "\nC2 destructor\n";}
-    void print() const { std::cout << "Value " << d->x << " " << d->y; }
+    void print() const { std::cout << "Value " << d; }
 };
 
-void program()
+std::shared_ptr<Point> sp(new Point(1, 0));
+std::weak_ptr<Point> wp(sp);
+
+void use_count()
 {
-    std::shared_ptr<Point> sp(new Point(1, 2));
-    C1 c1(sp);
-    C2 c2(sp);
-    std::cout << sp.use_count() << std::endl; // 3
-    return;
-}
+    std::cout << wp.use_count() << std::endl; // 0
+};
 
 int main()
 {
-    program();
+    C1 c1(sp);
+    C2 c2(sp);
+    sp.reset();
+    std::atexit(use_count);
     return 0;
 }
