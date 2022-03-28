@@ -1,4 +1,19 @@
-// a
+// c. modified
+// output:
+// Derived destructor
+// Base destructor
+
+// Derived destructor
+// Base destructor
+
+// Derived destructor
+// Base destructor
+
+// Derived destructor
+// Base destructor
+
+// Derived destructor
+// Base destructor
 #include <iostream>
 #include <list>
 #include <memory>
@@ -9,7 +24,6 @@ private:
 public:
     Base() { }
     virtual void print() const = 0;
-protected:
     virtual ~Base() { std::cout << "Base destructor\n\n"; }
 };
 
@@ -22,8 +36,21 @@ public:
     void print() const { std::cout << "derived object\n";}
 };
 
+class Factory
+{
+public:
+    auto create_derived()
+    {
+        return std::make_unique<Derived>();
+    }
+};
+
 int main()
 {
     std::list<std::unique_ptr<Base>> l;
+    for (int i = 0; i < 5; i++)
+    {
+        l.push_back(Factory().create_derived());
+    }
     return 0;
 }

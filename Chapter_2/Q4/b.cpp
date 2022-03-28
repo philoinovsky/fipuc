@@ -1,4 +1,6 @@
-// a
+// b. create Factory function
+// output:
+// compiling error, because of Base Destructor is protected
 #include <iostream>
 #include <list>
 #include <memory>
@@ -22,8 +24,21 @@ public:
     void print() const { std::cout << "derived object\n";}
 };
 
+class Factory
+{
+public:
+    auto create_derived()
+    {
+        return std::make_unique<Derived>();
+    }
+};
+
 int main()
 {
     std::list<std::unique_ptr<Base>> l;
+    for (int i = 0; i < 5; i++)
+    {
+        l.push_back(Factory().create_derived());
+    }
     return 0;
 }
