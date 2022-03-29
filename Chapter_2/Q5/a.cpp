@@ -7,7 +7,7 @@ using namespace std;
 
 void native_function()
 {
-    unique_ptr<FILE, decltype(&fclose)> fp(fopen("file.txt", "r"), &fclose);
+    unique_ptr<FILE, decltype(&fclose)> fp(fopen("file.txt", "r"), fclose);
     char buf[30];
     fgets(buf, 30, fp.get());
     cout << buf << endl;

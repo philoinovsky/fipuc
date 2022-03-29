@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    shared_ptr<FILE> fp(fopen("file.txt", "r"), &fclose);
+    shared_ptr<FILE> fp(fopen("file.txt", "r"), fclose);
     char buf[30];
     fgets(buf, 30, fp.get());
     cout << buf << endl;
@@ -19,7 +19,7 @@ int main()
     {
 
     };
-    shared_ptr<FILE> fpp(fopen("file.txt", "r"), &fclose);
+    shared_ptr<FILE> fpp(fopen("file.txt", "r"), fclose);
     cout << fp.use_count() << endl;
     return 0;
 }
