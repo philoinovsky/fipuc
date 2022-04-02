@@ -16,7 +16,7 @@ struct Range
 };
 
 // Define interfaces
-typedef std::function<double (double x)> Function;
+typedef std::function<double (double)> Function;
 typedef std::function<double (const Function& fun,
     const Range<double>& range, std::size_t N)> QuadMethod;
 

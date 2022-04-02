@@ -1,0 +1,3 @@
+- under which circumstances will you use lambda?
+    - generate the function on-the-fly
+    - you don't need a name
