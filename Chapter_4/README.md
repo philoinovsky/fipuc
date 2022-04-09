@@ -1,3 +1,8 @@
 - takeaway
     - Q4:
         - `decltype(c->x)` differs from `decltype((c->x))`, the latter is lvalue ref
+    - Q9 & Q10:
+        - use template function
+        - template class can't use `enable_if` to do branches, they don't have overload mechanism as functions do.
+        - 5 ways of using `enable_if`, chech out the cppreference.com
+            - https://en.cppreference.com/w/cpp/types/enable_if
