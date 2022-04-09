@@ -1,0 +1,7 @@
+- let A be an empty class, determine which of the following types are references, l or r?
+    - `A`: non-ref
+    - `A&`: lvalue-ref
+    - `A&&`: rvalue-ref
+    - `int`: non-ref
+    - `int&`: lvalue-ref
+    - `int&&`: rvalue-ref

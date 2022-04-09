@@ -1,0 +1,2 @@
+- 'A', true, false will be converted to integer
+    - 4 + 10 + 61 + 1 + 0 = 76

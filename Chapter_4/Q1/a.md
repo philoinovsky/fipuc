@@ -1,0 +1,3 @@
+- error
+    - no
+    - do you mean the duplicated function name?
