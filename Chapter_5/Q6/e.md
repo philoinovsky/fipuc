@@ -1,0 +1,3 @@
+- Is it possible to create a tuple with two elements from a pair or vice versa? Is it possible to create a tuple with three elements from a pair or vice versa?
+    - yes and yes
+    - `tuple<x, y> a{p.first, p.second}`

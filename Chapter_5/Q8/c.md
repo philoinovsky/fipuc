@@ -1,0 +1,3 @@
+- when tuples are used instead of vectors...
+    - a) must be suffered a lot from unpacking & packing the data
+    - b) also
